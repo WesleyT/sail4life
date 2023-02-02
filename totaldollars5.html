@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <style>
+	h1 {
+	text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;
+	}
+</style>
+
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <div class="top">
+      <h1 style="color: #ffffff;"><font face="verdana">$<span class="totaldollars" id="totaldollars"></span></font></h1>
+    </div>
+    <script type="text/javascript">
+        var http_request = new XMLHttpRequest();
+        
+        function makeRequest() {
+          http_request.onreadystatechange = handleCheckboxRequest;
+          http_request.open('GET','http://weazol.stream/totaldollars.txt',true);
+          http_request.send(null);
+          setTimeout(function(){ makeRequest(); }, 5000)
+        }  
+
+        function handleCheckboxRequest() {
+          if (http_request.readyState == 4 && http_request.status == 200) {
+            document.getElementById('totaldollars').innerHTML = http_request.responseText;
+          }
+        }    
+        makeRequest();
+      </script>
+  </body>
+</html>
